@@ -11,7 +11,7 @@ Category.init(
       primaryKey: true,
       autoIncrement: true,
     },
-    // Use Sequelize's UUID functionality to generate a unique number for the library card instead of making us do it ourselves
+    
     category_name: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -23,7 +23,7 @@ Category.init(
     timestamps: false,
     freezeTableName: true,
     underscored: true,
-    modelName: 'category',
+    modelName: 'Category',
   }
 );
 
