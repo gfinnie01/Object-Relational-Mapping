@@ -1,12 +1,12 @@
 const router = require('express').Router();
 const { Product, Category, Tag, ProductTag } = require('../../models');
-
+const sequelize = require('../../config/connection');
 // The `/api/products` endpoint
 
 // get all products
 router.get('/', async (req, res) => {
   try {
-    const productData = await product.findAll({
+    const productData = await product.findAll(req.perams.Category, {
       include: [{ model: Category }, {model: Tag}, {model: ProductTag}],
     });
     res.status(200).json(productData);

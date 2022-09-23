@@ -1,17 +1,18 @@
 const router = require('express').Router();
 const { Tag, Product, ProductTag } = require('../../models');
-const { sync } = require('../../models/Product');
+const sequelize = require('../../config/connection');
 
 // The `/api/tags` endpoint
 
 router.get('/', async (req, res) => {
   try {
     const tagData = await Tag.findAll({
-      include: [{ model: Product },{ model: ProductTag }],
+      include: [{ model: Product }, { model: ProductTag }],
     });
     res.status(200).json(tagData);
   } catch (err) {
     res.status(500).json(err);
+    console.log(err)
   }
 });
 
