@@ -44,27 +44,33 @@ router.post('/', async (req, res) => {
   }
 });
 
-router.put('/:id', async (req, res) => {
-  try {
-    const tagData = await User.update(req.body, {
+router.put('/:id', (req, res) => {
+  Tag.update(
+    {
+      tag_name: req.body.tag_name
+    },
+    {
       where: {
-        id: req.params.id,
-      },
+        id: req.params.id
+      }
+    })
+    .then(tagData => {
+      if (!tagData) {
+        res.status(404).json({ message: 'No Tag found with that ID.' });
+        return;
+      }
+      res.json(tagData);
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
     });
-    if (!tagData[0]) {
-      res.status(404).json({ message: 'No user with this id!' });
-      return;
-    }
-    res.status(200).json(tagData);
-  } catch (err) {
-    res.status(500).json(err);
-  }
 });
 
 router.delete('/:id', (req, res) => {
   Tag.destroy({
     where: {
-      isbn: req.params.isbn,
+      id: req.params.id,
     },
   })
     .then((deletedTag) => {
