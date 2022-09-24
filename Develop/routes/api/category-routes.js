@@ -32,7 +32,7 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-router.post('/', async (req, res) => {
+router.post('/:id', async (req, res) => {
   try {
     const categoryData = await Category.create({
       category_name: req.body.category_name,
@@ -43,9 +43,9 @@ router.post('/', async (req, res) => {
   }
 });
 
-router.put('/:id', async (req, res) => {
+router.put('/', async (req, res) => {
   try {
-    const categoryData = await User.update(req.body, {
+    const categoryData = await User.update(req.params.id, {
       where: {
         id: req.params.id,
       },
@@ -64,7 +64,7 @@ router.delete('/:id', (req, res) => {
   // delete a category by its `id` value
   Category.destroy({
     where: {
-      isbn: req.params.isbn,
+      id: req.params.id,
     },
   })
     .then((deletedCategory) => {
